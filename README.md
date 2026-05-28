@@ -1,54 +1,128 @@
 # ChemPath
 
-> **ChemPath: Directed Weighted Graph Models of Organic Reaction Mechanisms Enable Algorithmic Synthesis Route Prediction via Modified A\* Search**
+> **ChemPath: Directed Weighted Graph Models for Algorithmic Organic Synthesis Route Prediction**
 
-ChemPath models organic reaction mechanisms as a directed weighted graph where:
-- **Nodes** = molecules
-- **Edges** = reaction steps  
-- **Weights** = ΔG‡ (activation energy, sourced from NIST WebBook)
+ChemPath is a computational chemistry and graph-theory research project that models organic reaction mechanisms as a **directed weighted graph**:
 
-Three pathfinding algorithms (Dijkstra, A*, Bellman-Ford) are compared for synthesis route prediction. The novel A* heuristic uses the **Tanimoto coefficient on Morgan fingerprints** to estimate molecular similarity as a proxy for reaction feasibility.
+- **Nodes** → molecules
+- **Edges** → reaction steps
+- **Weights** → relative reaction-cost / activation-energy-inspired metrics
+
+The project explores whether classical graph pathfinding algorithms can meaningfully navigate simplified organic synthesis spaces.
+
+---
+
+## Core Idea
+
+ChemPath reframes retrosynthesis as a graph traversal problem:
+
+```text
+Chemistry → Directed Weighted Graph → Pathfinding Problem
+```
+
+Instead of manually searching synthesis routes, the system algorithmically evaluates possible pathways between molecules using shortest-path and heuristic-search algorithms.
+
+---
+
+## Algorithms
+
+ChemPath currently explores and compares:
+
+- **Dijkstra's Algorithm**
+- **Bellman–Ford Algorithm**
+- **A\* Search**
+
+The A\* heuristic is planned to use:
+
+- **Morgan fingerprints**
+- **Tanimoto similarity**
+
+to estimate structural proximity between molecules during traversal.
+
+---
 
 ## Motivation
 
-Retrosynthesis — working backward from a target molecule to available starting materials — is one of chemistry's hardest problems. ChemPath frames it as a graph traversal problem, making it tractable for computational approaches, especially in resource-limited research labs.
+Retrosynthesis — determining how to synthesize a target molecule from available starting materials — is one of the most challenging problems in organic chemistry.
+
+ChemPath investigates whether graph-theoretic optimization techniques from computer science can provide computationally useful representations of synthesis pathways.
+
+---
 
 ## Architecture
-```
-Molecule DB → Graph Engine (C++) → Algorithm Layer → Route Output → MechLang SVG
+
+```text
+Reaction Dataset
+        ↓
+Directed Weighted Graph Construction
+        ↓
+Pathfinding Algorithms
+(Dijkstra / Bellman-Ford / A*)
+        ↓
+Route Reconstruction
+        ↓
+MechLang Visualization
 ```
 
-## Experiment Sets
+---
 
-| Set | Description |
-|-----|-------------|
-| A | Known route validation vs. Clayden's Organic Chemistry |
-| B | Route efficiency comparison by total ΔG‡ |
-| C | Novel route discovery |
+## Current Goals
+
+- Build a scalable graph representation of reaction pathways
+- Compare classical shortest-path algorithms on synthesis graphs
+- Evaluate chemically informed heuristic search
+- Explore computational representations of synthesis space
+
+---
+
+## Planned Experiment Sets
+
+| Set | Description                                                |
+|-----|------------------------------------------------------------|
+| A   | Validation against known textbook synthesis routes         |
+| B   | Route efficiency comparison using cumulative reaction cost |
+| C   | Exploration of alternative graph pathways                  |
+
+---
 
 ## Tech Stack
 
-- **Engine:** C++
-- **Reaction DB:** JSON (~90 reactions, 12 families)
-- **Fingerprinting:** RDKit (Morgan fingerprints + Tanimoto)
-- **Visualization:** [MechLang](https://github.com/ForzaIs-Fav9/mechlang)
+| Component          | Technology                     |
+|--------------------|--------------------------------|
+| Core Graph Engine  | C++                            |
+| Cheminformatics    | Python + RDKit                 |
+| Data Storage       | JSON / SQL                     |
+| Similarity Metrics | Morgan Fingerprints + Tanimoto |
+| Visualization      | MechLang                       |
 
-## Timeline
+---
 
-| Phase | Period | Goal |
-|-------|--------|------|
-| Foundation | Mar–Apr 2026 | Graph engine + reaction DB |
-| A* Heuristic | May–Jun 2026 | Tanimoto integration |
-| Experiments | Jul–Aug 2026 | Run all 3 experiment sets |
-| Analysis | Sep–Oct 2026 | Statistical analysis |
-| Paper | Nov 2026 | Final ISEF submission |
+## Development Roadmap
+
+| Phase                   | Goal                                    |
+|-------------------------|-----------------------------------------|
+| Foundation              | Graph engine + reaction representation  |
+| Search Algorithms       | Dijkstra + Bellman-Ford                 |
+| Heuristic Search        | A\* implementation                      |
+| Chemical Similarity     | Morgan fingerprints + Tanimoto          |
+| Experimental Evaluation | Algorithm comparison + pathway analysis |
+| Visualization           | MechLang integration                    |
+| Research Paper          | Formal experimental writeup             |
+
+---
+
+## Research Context
+
+ChemPath is being developed as an independent computational chemistry research project intended for submission to research competitions such as the **IRIS National Fair**, India's affiliated pathway to **Regeneron ISEF**.
+
+---
 
 ## Status
 
-🔨 Active development — Foundation phase (March 2026)
+🔨 Active development — Graph engine prototype phase
+
+---
 
 ## License
 
-Apache 2.0
-
----
+[Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
