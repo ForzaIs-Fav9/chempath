@@ -11,6 +11,12 @@ struct Reaction
     double energy;
 };
 
+struct DijkstraResult
+{
+    vector<double> dist;
+    vector<int> parent;
+};
+
 void addReaction(
     vector<vector<Reaction>>& graph,
     int from,
@@ -22,13 +28,18 @@ void printGraph(
     const vector<vector<Reaction>>& graph
 );
 
-vector<double> dijkstra(
+DijkstraResult dijkstra(
     const vector<vector<Reaction>>& graph,
     int start
 );
 
 void printDistances(
     const vector<double>& dist
+);
+
+void printPath(
+    const vector<int>& parent,
+    int target
 );
 
 #endif
