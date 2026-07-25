@@ -11,11 +11,24 @@ struct Reaction
     double energy;
 };
 
-void addReaction(vector<vector<Reaction>>& graph,
-                 int from,
-                 int to,
-                 double energy);
+void addReaction(
+    vector<vector<Reaction>>& graph,
+    int from,
+    int to,
+    double energy
+);
 
-void printGraph(const vector<vector<Reaction>>& graph);
+void printGraph(
+    const vector<vector<Reaction>>& graph
+);
+
+vector<double> dijkstra(
+    const vector<vector<Reaction>>& graph,
+    int start
+);
+
+void printDistances(
+    const vector<double>& dist
+);
 
 #endif
